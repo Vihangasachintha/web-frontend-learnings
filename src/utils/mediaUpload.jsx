@@ -13,7 +13,6 @@ export default function mediaUpload(file) {
     }
     const timestamp = new Date().getTime();
     const newName = timestamp+file.name
-
     supabase.storage
       .from("images")
       .upload(newName, file, {

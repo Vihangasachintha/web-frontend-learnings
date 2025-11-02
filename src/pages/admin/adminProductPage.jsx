@@ -13,8 +13,11 @@ export default function AdminProductPage() {
       .then((res) => {
         console.log(res.data);
         setProducts(res.data);
+      })
+      .catch((err) => {
+        console.error("Failed to load products:", err?.response || err.message || err);
       });
-  },[]);
+  }, []);
 
   return (
     <div className="w-full h-full max-h-full overflow-y-scroll overflow-x-hidden bg-purple-800 relative">
