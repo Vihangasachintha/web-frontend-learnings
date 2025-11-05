@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/header";
 import ProductPage from "./client/productPage";
 import { Routes, Route } from "react-router-dom";
 
