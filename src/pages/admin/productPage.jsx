@@ -79,7 +79,7 @@ export default function AdminProductsPage() {
           <tbody>
             {products.map((item, index) => {
               return (
-                <tr key={index}>
+                <tr key={item._id || item.productId || index}>
                   <td>{item.productId}</td>
                   <td>{item.name}</td>
                   <td>
