@@ -26,7 +26,7 @@ export default function ProductOverviewPage(){
     }, [productId])
 
     return(
-        <div>
+        <div className="bg-primary">
             This is overview page for product {JSON.stringify(product)}
         </div>
     )
