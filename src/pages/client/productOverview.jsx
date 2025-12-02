@@ -35,8 +35,27 @@ export default function ProductOverviewPage() {
           <div className="w-[50%] h-full flex justify-center items-center">
             <ImageSlider images={product.images} />
           </div>
-          <div className="w-[50%] bg-blue-900 h-full">
-            <button className="active:bg-red-900 hover:bg-accent">Add to Cart</button>
+          <div className="w-[50%] flex justify-center items-center h-full">
+            <div className="w-[500px] h-[600px]">
+              <h1 className="w-full text-center text-2xl text-secondary font-semibold">{product.name}
+                {
+                  product.altNames.map((altName,index)=>{
+                    return(
+                      <span key={index} className="text-2xl text-gray-600">{" | " + altName}</span>
+                    )
+                  })
+                }
+              </h1>
+              <h1 className="w-full text-center my-2 text-md text-gray-600 font-semibold">{product.productId}</h1>
+              <p className="w-full text-center my-2 text-md text-gray-600 font-semibold">{product.description}</p>
+              {
+                product.labelPrice > product.price && 
+                <div className="flex justify-center">
+                  <span className="text-4xl mx-4">{product.labelPrice.toFixed(2)} </span>
+                  <span className="text-4xl mx-4 font-bold text-accent">{product.price.toFixed(2)}</span>
+                </div>
+              }
+            </div>
           </div>
         </div>
       )}
