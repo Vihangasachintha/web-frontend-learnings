@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import ImageSlider from "../../components/imageSlider.jsx";
 import Loading from "../../components/loading.jsx";
 import "./style.css";
+import { addToCart } from "../../utils/cart.jsx";
+import { getCart } from "../../utils/cart.jsx";
+import { removeFromCart } from "../../utils/cart.jsx";
 
 export default function ProductOverviewPage() {
   const params = useParams();
@@ -68,7 +71,14 @@ export default function ProductOverviewPage() {
                 </span>
               )}
               <div className="w-full flex justify-center mt-4">
-                <button className="w-[200px] h-[50px] bg-accent text-white rounded-2xl hover:bg-accent/80 transition-all duration-300 mx-4">
+                <button className="w-[200px] h-[50px] bg-accent text-white rounded-2xl hover:bg-accent/80 transition-all duration-300 mx-4" onClick={() => {
+                  console.log("Old cart");
+                  console.log(getCart());
+                  addToCart(product, 1);
+                  console.log("New cart");
+                  console.log(getCart());
+                  toast.success("Added to cart");
+                }}>
                   Add to Cart
                 </button>
                 <button className="w-[200px] h-[50px] bg-accent text-white rounded-2xl hover:bg-accent/80 transition-all duration-300 mx-4">
