@@ -27,7 +27,7 @@ export default function CartPage(){
                                 </div>
                                 <div className="max-w-[100px] w-[100px]  h-full flex flex-row justify-evenly items-center">
                                     <button className="text-white font-bold rounded-xl hover:bg-secondary p-2 text-xl cursor-pointer aspect-square bg-accent"><BiMinus/></button>
-                                    <h1 className="text-xl text-secondary font-semibold h-full flex items-center">{item.qty}</h1>
+                                    <h1 className="text-xl text-secondary font-semibold h-full flex items-center mx-2">{item.qty}</h1>
                                     <button className="text-white font-bold rounded-xl hover:bg-secondary p-2 text-xl cursor-pointer  aspect-square bg-accent"><BiPlus/></button>                                
                                 </div>
                                 {/* total */}

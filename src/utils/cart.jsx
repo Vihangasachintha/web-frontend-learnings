@@ -4,10 +4,10 @@ export function getCart() {
   if (!cart) {
     cart = [];
     localStorage.setItem("cart", JSON.stringify(cart));
-    return cart;
+  } else {
+    return JSON.parse(cart);
   }
-
-  return JSON.parse(cart);
+  return cart;
 }
 
 export function addToCart(product, qty) {
