@@ -1,39 +1,44 @@
 export function getCart() {
-  let cart = localStorage.getItem("cart");
+  const cart = localStorage.getItem("cart");
 
   if (!cart) {
-    cart = [];
-    localStorage.setItem("cart", JSON.stringify(cart));
-  } else {
-    return JSON.parse(cart);
+    const empty = [];
+    localStorage.setItem("cart", JSON.stringify(empty));
+    return empty;
   }
-  return cart;
+
+  try {
+    return JSON.parse(cart);
+  } catch (e) {
+    console.error("Invalid cart data, resetting...");
+    localStorage.setItem("cart", JSON.stringify([]));
+    return [];
+  }
 }
 
 export function addToCart(product, qty) {
   let cart = getCart();
 
-  let index = cart.findIndex((item) => {
-    return item.productId === product.productId;
-  });
+  let index = cart.findIndex((item) => item.productId === product.productId);
 
   if (index === -1) {
     cart.push({
-      productId: product.productId,
+      productId: product._id || product.productId || product.id,
       name: product.name,
       price: product.price,
       qty: qty,
-      labelledPrice: product.labelPrice,
-      image: product.images[0],
+      labelledPrice: product.labelPrice || product.labelledPrice,
+      image: product.images?.[0] || product.image,
     });
   } else {
     const newQty = cart[index].qty + qty;
+
     if (newQty <= 0) {
       removeFromCart(product.productId);
       return;
-    } else {
-      cart[index].qty = newQty;
     }
+
+    cart[index].qty = newQty;
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -42,19 +47,12 @@ export function addToCart(product, qty) {
 export function removeFromCart(productId) {
   let cart = getCart();
 
-  const newCart = cart.filter((item) => {
-    return item.productId !== productId;
-  });
+  const newCart = cart.filter((item) => item.productId !== productId);
 
   localStorage.setItem("cart", JSON.stringify(newCart));
 }
 
-export function getTotal(){
+export function getTotal() {
   let cart = getCart();
-  let total = 0;
-
-  for(let i =0; i<cart.length; i++){
-    total += cart[i].price * cart[i].qty;
-  }
-  return total;
+  return cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 }

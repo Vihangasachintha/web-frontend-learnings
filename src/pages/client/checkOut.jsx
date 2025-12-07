@@ -40,53 +40,89 @@ export default function CheckoutPage() {
     setCart(newCart);
   }
 
-  // Backend expects: [{ productId, quantity }]
+  // Build products payload matching backend schema
   function buildProductsPayload() {
-    return cart.map((item) => ({
-      productId: String(item.productId ?? item.id ?? item._id ?? ""),
-      quantity: Number(item.qty ?? 1),
-    }));
+  return cart
+    .map((item) => {
+      const productId =
+        item.productId ||
+        item.id ||
+        item._id ||
+        null;
+
+      if (!productId) {
+        console.error("Missing productId in cart item:", item);
+        return null;
+      }
+
+      return {
+        productId: String(productId),   // Backend expects this
+        quantity: Number(item.qty ?? 1)
+      };
+    })
+    .filter(Boolean);
+}
+
+async function placeOrder() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    toast.error("Please login to place order");
+    return;
   }
 
-  async function placeOrder() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("Please login to place order");
-      return;
-    }
-    if (!email || !name || !phoneNumber || !address) {
-      toast.error("Please fill email, name, phone, and address");
-      return;
-    }
-    if (!cart.length) {
-      toast.error("Cart is empty");
-      return;
-    }
-
-    const { total, labelledTotal } = getTotals();
-
-    const orderInformation = {
-      email,
-      name,
-      phone: phoneNumber,
-      address,
-      labelledTotal,
-      total,
-      products: buildProductsPayload(),
-    };
-
-    try {
-      const backend = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-      const res = await axios.post(`${backend}/api/orders`, orderInformation, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      toast.success("Order placed successfully");
-      console.log(res.data);
-    } catch (err) {
-      console.error("Order error:", err.response?.data || err.message);
-      toast.error(err.response?.data?.message || "Error placing order");
-    }
+  if (!email || !name || !phoneNumber || !address) {
+    toast.error("Please fill email, name, phone, and address");
+    return;
   }
+
+  if (!cart.length) {
+    toast.error("Cart is empty");
+    return;
+  }
+
+  const { total, labelledTotal } = getTotals();
+  const products = buildProductsPayload();
+
+  if (!products.length) {
+    toast.error("Invalid cart items. Try re-adding products.");
+    return;
+  }
+
+  const orderInformation = {
+    email,
+    name,
+    phone: phoneNumber,
+    address,
+    labelledTotal,
+    total,
+    products   // ← Now correct format
+  };
+
+  try {
+    const backend = import.meta.env.VITE_BACKEND_URL;
+    const res = await axios.post(`${backend}/api/orders`, orderInformation, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      withCredentials: false,
+    });
+
+    toast.success("Order placed successfully");
+    console.log(res.data);
+
+    setCart([]); // clear cart
+  } catch (err) {
+    const data = err.response?.data;
+    const serverMessage =
+      (typeof data === "string" ? data : data?.message) ||
+      (Array.isArray(data?.errors) ? data.errors.join(", ") : null) ||
+      (data?.error?.message ?? null);
+
+    toast.error(serverMessage || "Failed to create order");
+    console.error("Order error:", err);
+  }
+}
 
   return (
     <div className="w-full h-full flex flex-col items-center pt-4 relative ">
