@@ -58,9 +58,9 @@ export default function AdminProductsPage() {
 
       <Link
         to="/admin/add-product"
-        className="fixed bottom-8 right-8 bg-accent hover:bg-accent/90 text-white text-3xl w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all"
+        className="fixed bottom-8 right-8 bg-accent hover:bg-accent/90 text-white text-lg w-36 h-12 rounded-full flex items-center justify-center shadow-lg transition-all"
       >
-        +
+        + Add Product
       </Link>
 
       {/* Page Heading */}
