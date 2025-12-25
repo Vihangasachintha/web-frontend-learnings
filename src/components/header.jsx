@@ -1,90 +1,199 @@
 import UserData from "./userData.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { BsCart3 } from "react-icons/bs";
+import { BsCart3, BsSearch, BsPerson } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoCloseOutline } from "react-icons/io5";
 import { useState } from "react";
 
 export default function Header() {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  console.log("Header component loading...");
+  
   return (
-    <header className="w-full h-[100px] shadow-2xl flex justify-center relative ">
-      <GiHamburgerMenu className="h-full mx-2 text-3xl md:hidden absolute left-2" onClick={()=>{
-        setSideDrawerOpen(true)
-      }} />
-      <img
-        onClick={() => {
-          navigate("/");
-        }}
-        src="/logo.png"
-        alt="Logo"
-        className="w-[80px] h-[80px] object-cover cursor-pointer"
-      />
-      <div className="w-[calc(100%-80px)] h-full hidden md:flex justify-center items-center">
-        <Link to="/" className="text-[20px] font-bold mx-2">
-          Home
-        </Link>
-        <Link to="/products" className="text-[20px] font-bold mx-2">
-          Products
-        </Link>
-        <Link to="/about" className="text-[20px] font-bold mx-2">
-          About
-        </Link>
-        <Link to="/contact" className="text-[20px] font-bold mx-2">
-          Contact
-        </Link>
-        <Link to="/search" className="text-[20px] font-bold mx-2">
-          Search
-        </Link>
+    <header className="w-full bg-white sticky top-0 z-50 border-b border-gray-100">
+      {/* Top Bar - Optional: For announcements */}
+      <div className="w-full bg-black text-white text-center py-2 text-xs tracking-wider">
+        <p>FREE SHIPPING ON ORDERS OVER $100</p>
       </div>
-      <div className="w-[160px] hidden md:flex justify-center items-center">
-        {
-          token == null?
-          <Link to="/login" className="text-[20px] font-bold mx-2 cursor-pointer">
-            Login
-          </Link>
-          :
-          <button className="text-[20px] font-bold mx-2 cursor-pointer" onClick={()=>{
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            window.location.href = "/";
-          }}
+
+      {/* Main Header */}
+      <div className="max-w-[1400px] mx-auto px-6 h-[90px] flex items-center justify-between">
+        
+        {/* Left Navigation - Primary Categories */}
+        <nav className="hidden lg:flex items-center gap-8 flex-1">
+          <Link 
+            to="/" 
+            className="text-[13px] font-medium tracking-wider uppercase text-black hover:text-gray-600 transition-colors"
           >
-            Logout
-          </button>
-        }
-        <Link to="/cart" className="text-[20px] font-bold mx-2">
-          <BsCart3 />
-        </Link>
+            Home
+          </Link>
+          <Link 
+            to="/products" 
+            className="text-[13px] font-medium tracking-wider uppercase text-black hover:text-gray-600 transition-colors"
+          >
+            Shop
+          </Link>
+          <Link 
+            to="/about" 
+            className="text-[13px] font-medium tracking-wider uppercase text-black hover:text-gray-600 transition-colors"
+          >
+            About
+          </Link>
+          <Link 
+            to="/contact" 
+            className="text-[13px] font-medium tracking-wider uppercase text-black hover:text-gray-600 transition-colors"
+          >
+            Contact
+          </Link>
+        </nav>
+
+        {/* Mobile Menu Icon */}
+        <button 
+          className="lg:hidden text-2xl text-black"
+          onClick={() => setSideDrawerOpen(true)}
+          aria-label="Open menu"
+        >
+          <GiHamburgerMenu />
+        </button>
+
+        {/* Center Logo */}
+        <div className="flex items-center justify-center lg:mx-12">
+          <img
+            onClick={() => navigate("/")}
+            src="/logo.png"
+            alt="Logo"
+            className="h-[50px] w-auto object-contain cursor-pointer"
+          />
+        </div>
+
+        {/* Right Navigation - Utility Links */}
+        <div className="hidden lg:flex items-center gap-6 flex-1 justify-end">
+          <Link 
+            to="/search" 
+            className="text-xl text-black hover:text-gray-600 transition-colors"
+            aria-label="Search"
+          >
+            <BsSearch />
+          </Link>
+          
+          {token == null ? (
+            <Link 
+              to="/login" 
+              className="text-xl text-black hover:text-gray-600 transition-colors"
+              aria-label="Login"
+            >
+              <BsPerson />
+            </Link>
+          ) : (
+            <button 
+              className="text-[13px] font-medium tracking-wider uppercase text-black hover:text-gray-600 transition-colors"
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                window.location.href = "/";
+              }}
+            >
+              Logout
+            </button>
+          )}
+          
+          <Link 
+            to="/cart" 
+            className="text-xl text-black hover:text-gray-600 transition-colors relative"
+            aria-label="Cart"
+          >
+            <BsCart3 />
+          </Link>
+        </div>
+
+        {/* Mobile Right Icons */}
+        <div className="flex lg:hidden items-center gap-4">
+          <Link to="/search" className="text-xl text-black">
+            <BsSearch />
+          </Link>
+          <Link to="/cart" className="text-xl text-black">
+            <BsCart3 />
+          </Link>
+        </div>
       </div>
+
+      {/* Mobile Side Drawer */}
       {sideDrawerOpen && (
-        <div className="fixed h-screen w-full bg-[#00000060] flex z-10">
-          <div className="w-[300px] h-full bg-white">
-            <div className="w-full h-[80px] shadow-2xl flex justify-center items-center relative">
-              <GiHamburgerMenu
-                className="h-full text-3xl absolute left-2 cursor-pointer"
-                onClick={() => {
-                  setSideDrawerOpen(false);
-                }}
-              />
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 lg:hidden">
+          <div className="w-[320px] h-full bg-white shadow-2xl animate-slide-in">
+            {/* Drawer Header */}
+            <div className="h-[90px] border-b border-gray-100 flex items-center justify-between px-6">
               <img
                 onClick={() => {
-                  window.location.href = "/";
+                  setSideDrawerOpen(false);
+                  navigate("/");
                 }}
                 src="/logo.png"
                 alt="Logo"
-                className="w-[80px] h-[80px] object-cover cursor-pointer"
+                className="h-[40px] w-auto object-contain cursor-pointer"
               />
+              <button
+                onClick={() => setSideDrawerOpen(false)}
+                className="text-3xl text-black"
+                aria-label="Close menu"
+              >
+                <IoCloseOutline />
+              </button>
             </div>
-            <div className="w-full h-[calc(100%-80px)]  flex flex-col items-center gap-2">
-                <a href="/" className="text-[20px] font-bold mx-2 my-4">Home</a>
-                <a href="/products" className="text-[20px] font-bold mx-2 my-4">Products</a>
-                <a href="/about" className="text-[20px] font-bold mx-2 my-4">About</a>
-                <a href="/contact" className="text-[20px] font-bold mx-2 my-4">Contact</a>
-                <a href="/cart" className="text-[20px] font-bold mx-2 my-4"><BsCart3 /></a>
-            </div>
+
+            {/* Drawer Content */}
+            <nav className="flex flex-col p-6 gap-1">
+              <Link 
+                to="/" 
+                className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100"
+                onClick={() => setSideDrawerOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                to="/products" 
+                className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100"
+                onClick={() => setSideDrawerOpen(false)}
+              >
+                Shop
+              </Link>
+              <Link 
+                to="/about" 
+                className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100"
+                onClick={() => setSideDrawerOpen(false)}
+              >
+                About
+              </Link>
+              <Link 
+                to="/contact" 
+                className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100"
+                onClick={() => setSideDrawerOpen(false)}
+              >
+                Contact
+              </Link>
+              
+              {token == null ? (
+                <Link 
+                  to="/login" 
+                  className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100"
+                  onClick={() => setSideDrawerOpen(false)}
+                >
+                  Login
+                </Link>
+              ) : (
+                <button
+                  className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100 text-left"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    window.location.href = "/";
+                  }}
+                >
+                  Logout
+                </button>
+              )}
+            </nav>
           </div>
         </div>
       )}
