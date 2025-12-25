@@ -1,75 +1,79 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+import img1 from "../../assets/mainSlider/img1.jpg";
+import img2 from "../../assets/mainSlider/img2.jpg";
+import img3 from "../../assets/mainSlider/img3.jpg";
 
 export default function ClientHomePage() {
   const slides = [
     {
-      image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=1920&q=80",
+      image: img1,
       title: "NEW ARRIVALS",
-      subtitle: "Discover Our Latest Collection"
+      subtitle: "Discover Our Latest Collection",
     },
     {
-      image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1920&q=80",
+      image: img2,
       title: "PREMIUM QUALITY",
-      subtitle: "Luxury Products for Every Occasion"
+      subtitle: "Luxury Products for Every Occasion",
     },
     {
-      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920&q=80",
+      image: img3,
       title: "SPECIAL OFFERS",
-      subtitle: "Up to 50% Off on Selected Items"
-    }
+      subtitle: "Up to 50% Off on Selected Items",
+    },
   ];
 
   return (
-    <div className="w-full">
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay, EffectFade]}
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
-        navigation
-        pagination={{ 
-          clickable: true,
-          dynamicBullets: false
-        }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        className="hero-carousel"
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            <div className="relative w-full h-[500px] md:h-[650px] lg:h-[750px]">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-              <div className="absolute inset-0 max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-end">
-                <div className="text-right max-w-xl">
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[0.2em] text-white mb-4">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg md:text-xl text-white mb-8 font-light tracking-wider">
-                    {slide.subtitle}
-                  </p>
-                  <button className="bg-white text-black px-10 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-all duration-300 border border-white">
-                    Shop Now
-                  </button>
+    <div className="w-full flex flex-col">
+      <div className="w-full">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay, EffectFade]}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          navigation
+          pagination={{
+            clickable: true,
+            dynamicBullets: false,
+          }}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          loop={true}
+          className="hero-carousel"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative w-full h-[620px]">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-opacity-10"></div>
+                <div className="absolute inset-0 max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-end">
+                  <div className="text-right max-w-xl">
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[0.2em] text-white mb-4 drop-shadow-[0_2px_10px_rgba(0,0,1,1)]">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg md:text-xl text-white mb-8 font-light tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+                      {slide.subtitle}
+                    </p>
+                    <button className="bg-white text-black px-10 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-all duration-300 border border-white">
+                      Shop Now
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      <style>{`
+        <style>{`
         .hero-carousel .swiper-button-next,
         .hero-carousel .swiper-button-prev {
           color: white;
@@ -104,7 +108,44 @@ export default function ClientHomePage() {
           width: 60px;
         }
       `}</style>
+      </div>
+
+      <div className="w-full min-h-[400px] py-8">
+        <div className="m-2">
+          <label className="ms-16 text-xl font-semibold">Shop by Category</label>
+        </div>
+        <div className="flex flex-wrap p-5 gap-5 max-w-[1400px] mx-auto"
+          style={{maxWidth: 'calc((6rem + 1.25rem) * 11 + 2.5rem)'}}>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/skincare.png" alt="Skincare" />
+            <label className="" htmlFor="">Skincare</label>
+          </div>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/makeup.png" alt="Makeup" />
+            <label htmlFor="">Makeup</label>
+          </div>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/hair.png" alt="Hair" />
+            <label htmlFor="">Hair</label>
+          </div>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/bathbody.png" alt="Bath & Body" />
+            <label htmlFor="">Bath & Body</label>
+          </div>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/fragrances.png" alt="Fragrance" />
+            <label htmlFor="">Fragrance</label>
+          </div>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/wellness.png" alt="Wellness" />
+            <label htmlFor="">Wellness</label>
+          </div>
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300" src="/categories/tools.png" alt="Tools & Accessories" />
+            <label htmlFor="">Tools & Accessories</label>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-

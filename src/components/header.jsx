@@ -18,7 +18,7 @@ export default function Header() {
       </div>
 
       {/* Main Header */}
-      <div className="max-w-[1400px] mx-auto px-6 h-[90px] flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 h-[50px] flex items-center justify-between">
         
         {/* Left Navigation - Primary Categories */}
         <nav className="hidden lg:flex items-center gap-8 flex-1">
