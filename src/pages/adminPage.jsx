@@ -2,7 +2,7 @@ import { Link, Routes, Route, useLocation } from "react-router-dom";
 
 import Loading from "../components/loading";
 import AddProduct from "./admin/addProductPage";
-import AdminProductsPage from "./admin/ProductPage.jsx";
+import AdminProductsPage from "./admin/productPage.jsx";
 import EditProductPage from "./admin/editProductPage.jsx";
 import AdminOrdersPage from "./admin/adminOrdersPage.jsx";
 import { use, useEffect,useState } from "react";
