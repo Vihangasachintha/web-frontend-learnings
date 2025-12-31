@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function Header() {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   console.log("Header component loading...");
   return (
     <header className="w-full h-[100px] shadow-2xl flex justify-center relative ">
@@ -38,7 +39,22 @@ export default function Header() {
           Search
         </Link>
       </div>
-      <div className="w-[80px] hidden md:flex justify-center items-center">
+      <div className="w-[160px] hidden md:flex justify-center items-center">
+        {
+          token == null?
+          <Link to="/login" className="text-[20px] font-bold mx-2 cursor-pointer">
+            Login
+          </Link>
+          :
+          <button className="text-[20px] font-bold mx-2 cursor-pointer" onClick={()=>{
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/";
+          }}
+          >
+            Logout
+          </button>
+        }
         <Link to="/cart" className="text-[20px] font-bold mx-2">
           <BsCart3 />
         </Link>
