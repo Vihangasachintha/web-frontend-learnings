@@ -39,11 +39,15 @@ export default function AdminBrands() {
         })
         .then((res) => {
           toast.success("Brand added successfully!");
-          window.location.reload();
-          navigate("/admin/brands");
+          setTimeout(() => {
+            window.location.reload();
+            navigate("/admin/brands");
+          }, 1500);
         })
         .catch((e) => {
-          toast.error(e.response?.data?.message || e.message || "Failed to add brand");
+          toast.error(
+            e.response?.data?.message || e.message || "Failed to add brand",
+          );
         });
     } catch (e) {
       console.log(e);
