@@ -65,7 +65,7 @@ export default function NewArrivalProductCard({ product }) {
               </svg>
             </button>
           </div>
-          <div className="w-full flex justify-center items-center h-[75px]">
+          <div className="w-full flex justify-center items-center h-[70px]">
             <label className="text-center text-lg text-gray-500">
               {product.name}
             </label>
