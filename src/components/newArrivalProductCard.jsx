@@ -75,7 +75,7 @@ export default function NewArrivalProductCard({ product }) {
               <div className="w-[100%] justify-start items-center flex ps-5">
                 <label className="text-gray-500 line-through decoration-gray-400">Rs.{product.labelPrice}.00</label>
               </div>
-              <div className="w-[100%] justify-start items-center flex ps-5">
+              <div className="w-[100%] justify-start items-center flex ps-5 text-gray-600 font-bold">
                 <label>Rs.{product.price}.00</label>
               </div>
             </div>
