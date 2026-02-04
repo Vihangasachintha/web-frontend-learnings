@@ -1,3 +1,7 @@
+import { addToCart } from "../utils/cart.jsx";
+import { getCart } from "../utils/cart.jsx";
+import toast from "react-hot-toast";
+
 export default function NewArrivalProductCard({ product }) {
   if (product) {
     return (
@@ -10,10 +14,10 @@ export default function NewArrivalProductCard({ product }) {
           />
         </div>
         <div className="h-[180px]">
-          <div class="h-[50px] flex justify-center p-4 rounded-lg w-auto space-x-1 lg:space-x-2">
+          <div className="h-[50px] flex justify-center p-4 rounded-lg w-auto space-x-1 lg:space-x-2">
             <button>
               <svg
-                class="text-pink-500 w-5 h-auto fill-current"
+                className="text-pink-500 w-5 h-auto fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -23,7 +27,7 @@ export default function NewArrivalProductCard({ product }) {
 
             <button>
               <svg
-                class="text-pink-500 w-5 h-auto fill-current"
+                className="text-pink-500 w-5 h-auto fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -33,7 +37,7 @@ export default function NewArrivalProductCard({ product }) {
 
             <button>
               <svg
-                class="text-pink-500 w-5 h-auto fill-current"
+                className="text-pink-500 w-5 h-auto fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -43,7 +47,7 @@ export default function NewArrivalProductCard({ product }) {
 
             <button>
               <svg
-                class="text-pink-500 w-5 h-auto fill-current"
+                className="text-pink-500 w-5 h-auto fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -53,7 +57,7 @@ export default function NewArrivalProductCard({ product }) {
 
             <button>
               <svg
-                class="text-pink-500 w-5 h-auto fill-current"
+                className="text-pink-500 w-5 h-auto fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
               >
@@ -76,7 +80,14 @@ export default function NewArrivalProductCard({ product }) {
               </div>
             </div>
             <div className="w-[50%] flex justify-center items-center mt-2">
-              <button className="w-[100px] h-[40px] bg-pink-500 rounded-xl text-white cursor-pointer hover:bg-pink-600">
+              <button className="w-[100px] h-[40px] bg-pink-500 rounded-xl text-white cursor-pointer hover:bg-pink-600" onClick={() => {
+                                console.log("Old cart");
+                                console.log(getCart());
+                                addToCart(product, 1);
+                                console.log("New cart");
+                                console.log(getCart());
+                                toast.success("Added to cart");
+                              }}>
                 Add to Cart
               </button>
             </div>

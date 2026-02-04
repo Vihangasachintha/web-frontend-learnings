@@ -19,11 +19,13 @@ export function getCart() {
 export function addToCart(product, qty) {
   let cart = getCart();
 
-  let index = cart.findIndex((item) => item.productId === product.productId);
+  const productId = product._id || product.productId || product.id;
+
+  let index = cart.findIndex((item) => item.productId === productId);
 
   if (index === -1) {
     cart.push({
-      productId: product._id || product.productId || product.id,
+      productId,
       name: product.name,
       price: product.price,
       qty: qty,
@@ -34,7 +36,7 @@ export function addToCart(product, qty) {
     const newQty = cart[index].qty + qty;
 
     if (newQty <= 0) {
-      removeFromCart(product.productId);
+      removeFromCart(productId);
       return;
     }
 
