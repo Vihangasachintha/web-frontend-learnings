@@ -5,6 +5,7 @@ import AddProduct from "./admin/addProductPage";
 import AdminProductsPage from "./admin/productPage.jsx";
 import EditProductPage from "./admin/editProductPage.jsx";
 import AdminOrdersPage from "./admin/adminOrdersPage.jsx";
+import AdminBrands from "./admin/adminBrands.jsx";
 import { use, useEffect,useState } from "react";
 import axios from "axios";
 
@@ -68,6 +69,9 @@ export default function AdminPage() {
             <Link className={getClass("reviews")} to="/admin/reviews">
               Reviews
             </Link>
+            <Link className={getClass("brands")} to="/admin/brands">
+              Brands
+            </Link>
           </div>
           <div className="h-full w-[calc(100%-300px)] border-accent border-4 rounded-xl bg-white">
             <Routes path="/*">
@@ -80,6 +84,9 @@ export default function AdminPage() {
               <Route path="/orders" element={<AdminOrdersPage />}></Route>
               <Route path="/reviews" element={<h1>Reviews</h1>}>
                 Reviews
+              </Route>
+              <Route path="/brands" element={<AdminBrands />}>
+                Brands
               </Route>
               <Route path="/add-product" element={<AddProduct />} />
               <Route path="/edit-product" element={<EditProductPage />} />
