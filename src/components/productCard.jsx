@@ -16,13 +16,13 @@ export default function ProductCard({ product }) {
     name = "",
     description = "",
     price = 0,
-    labelledPrice = 0,
+    labelPrice = 0,
     isAvailable = false,
     stock = 0,
   } = product;
 
   const hasImages = Array.isArray(images) && images.length > 0;
-  const showDiscount = Number(labelledPrice) !== Number(price);
+  const showDiscount = Number(labelPrice) !== Number(price);
 
   return (
     <Link to={"/overview/" + productId} className="w-[300px] h-[450px] bg-white shadow-lg rounded-lg m-4 overflow-hidden flex flex-col border border-gray-200 hover:shadow-xl transition-shadow duration-300">
@@ -56,7 +56,7 @@ export default function ProductCard({ product }) {
                 Rs. {formatPrice(price)}
               </p>
               <p className="text-gray-400 line-through text-sm">
-                Rs. {formatPrice(labelledPrice)}
+                Rs. {formatPrice(labelPrice)}
               </p>
             </div>
           ) : (
