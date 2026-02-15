@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import brandImagesUpload from "../../utils/brandImagesUpload";
 import axios from "axios";
+import Brands from "../../components/brands";
+import Loading from "../../components/loading";
 
 export default function AdminBrands() {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("active");
   const [image, setImage] = useState([]);
   const navigate = useNavigate();
+
+  const [brands, setBrands] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function addBrand(e) {
     e.preventDefault();
@@ -57,8 +62,24 @@ export default function AdminBrands() {
     }
   }
 
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/brands")
+      .then((res) => {
+        setBrands(res.data);
+        setIsLoading(false);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching brands:", error);
+        setBrands([]);
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="w-full h-full overflow-y-scroll mx-auto p-6 ">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Brand Management</h1>
         <p className="text-gray-500">Add and manage beauty product brands</p>
@@ -128,36 +149,26 @@ export default function AdminBrands() {
           Brands List
         </h2>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
-              <tr>
-                <th className="px-4 py-3">Logo</th>
-                <th className="px-4 py-3">Brand Name</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              <tr className="hover:bg-gray-100">
-                <td className="px-4 py-3">
-                  <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
-                </td>
-                <td className="px-4 py-3 font-medium text-gray-700">L'Oréal</td>
-                <td className="px-4 py-3">
-                  <span className="bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">
-                    Active
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-right space-x-2">
-                  <button className="text-red-600 hover:bg-red-500 border hover:text-white px-2 py-1.5 rounded-lg">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {isLoading ? (
+          <Loading />
+        ) : brands.length > 0 ? (
+          <div className="space-y-2">
+            {/* Header Row */}
+            <div className="grid grid-cols-4 bg-gray-50 text-gray-600 uppercase text-xs font-semibold px-4 py-3 rounded-lg">
+              <div>Logo</div>
+              <div>Brand Name</div>
+              <div>Status</div>
+              <div className="text-right">Actions</div>
+            </div>
+
+            {/* Brand Rows */}
+            {brands.map((brand) => (
+              <Brands key={brand._id} brand={brand} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-gray-500 text-sm">No brands available!</div>
+        )}
       </div>
     </div>
   );

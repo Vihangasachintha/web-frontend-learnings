@@ -14,7 +14,7 @@ export default function Header() {
     <header className="w-full bg-white sticky top-0 z-50 border-b border-gray-100">
       {/* Top Bar - Optional: For announcements */}
       <div className="w-full bg-black text-white text-center py-2 text-xs tracking-wider">
-        <p>FREE SHIPPING ON ORDERS OVER $100</p>
+        <p>FREE SHIPPING ON ORDERS OVER Rs.2500.00</p>
       </div>
 
       {/* Main Header */}

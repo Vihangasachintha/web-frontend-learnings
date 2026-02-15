@@ -17,7 +17,7 @@ export default function AdminProductsPage() {
         setProducts(res.data);
         setIsLoading(false);
       })
-      .catch((err) => {
+      .catch((err) => { 
         console.error("Failed to load products:", err);
         setIsLoading(false);
       });

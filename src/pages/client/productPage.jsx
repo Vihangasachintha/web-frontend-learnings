@@ -15,8 +15,8 @@ export default function ProductPage() {
           const list = Array.isArray(res.data)
             ? res.data
             : Array.isArray(res.data?.products)
-            ? res.data.products
-            : [];
+              ? res.data.products
+              : [];
           setProducts(list);
           setIsLoading(false);
         });
@@ -33,9 +33,14 @@ export default function ProductPage() {
         <div className="text-gray-500 py-8">No products found.</div>
       ) : (
         products.map((product) => (
-          <ProductCard key={product._id || product.productId} product={product} />
+          <ProductCard
+            key={product._id || product.productId}
+            product={product}
+          />
         ))
       )}
+
+      <div className="w-full py-2"></div>
     </div>
   );
 }
