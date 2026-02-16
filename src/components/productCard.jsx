@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
   const showDiscount = Number(labelPrice) !== Number(price);
 
   return (
-    <Link to={"/overview/" + productId} className="w-[300px] h-[450px] bg-white shadow-lg rounded-lg m-4 overflow-hidden flex flex-col border border-gray-200 hover:shadow-xl transition-shadow duration-300">
+    <Link to={"/overview/" + productId} className="w-[300px] h-[450px] bg-white shadow-lg shadow-pink-300/50 rounded-lg m-4 overflow-hidden flex flex-col border border-pink-200 hover:shadow-2xl hover:shadow-pink-400/60 transition-shadow duration-300">
       {/* Image */}
       <div className="h-[200px] w-full bg-gray-100 flex items-center justify-center">
         {hasImages ? (
