@@ -27,7 +27,7 @@ export default function CartPage(){
                 cart.map(
                     (item)=>{
                         return(
-                            <div key={item.productId} className="w-[70%] md:w-[600px] my-4 md:h-[100px] rounded-tl-3xl rounded-bl-3xl bg-primary shadow-2xl flex flex-col md:flex-row relative justify-center items-center p-2 md:pt-0">
+                            <div key={item.productId} className="w-[70%] md:w-[600px] my-4 md:h-[150px] rounded-tl-3xl rounded-bl-3xl bg-primary shadow-2xl flex flex-col md:flex-row relative justify-center items-center p-2 md:pt-0">
                                 <img src={item.image} className="w-[100px] h-[100px] object-cover rounded-3xl"/>
                                 <div className="w-[250px] h-full flex flex-col justify-center  items-center md:items-start pl-4">
                                     <h1 className="text-xl text-secondary font-semibold">{item.name}</h1>
