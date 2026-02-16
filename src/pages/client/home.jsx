@@ -14,12 +14,14 @@ import img3 from "../../assets/mainSlider/img3.jpg";
 // import new4 from "../../assets/newArrivals/new4.png";
 
 import NewArrivalProductCard from "../../components/newArrivalProductCard.jsx";
+import { BrandCard } from "../../components/brandCard.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "../../components/loading.jsx";
 
 export default function ClientHomePage() {
   const [newArrivals, setNewArrivals] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const slides = [
@@ -51,6 +53,21 @@ export default function ClientHomePage() {
       .catch((error) => {
         console.error("Error fetching new arrivals:", error);
         setNewArrivals([]);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(import.meta.env.VITE_BACKEND_URL + "/api/brands")
+      .then((res) => {
+        setBrands(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching brands:", error);
+        setBrands([]);
         setIsLoading(false);
       });
   }, []);
@@ -229,7 +246,10 @@ export default function ClientHomePage() {
           ) : newArrivals.length > 0 ? (
             <div className="flex flex-wrap justify-center gap-4">
               {newArrivals.map((product) => (
-                <NewArrivalProductCard key={product.productId} product={product} />
+                <NewArrivalProductCard
+                  key={product.productId}
+                  product={product}
+                />
               ))}
             </div>
           ) : (
@@ -238,7 +258,38 @@ export default function ClientHomePage() {
             </div>
           )}
         </div>
-        
+      </div>
+
+      <div className="w-full min-h-[300px] py-8">
+        <div className="m-2">
+          <label className="ms-16 text-xl font-semibold">Shop by Brand</label>
+        </div>
+        <div
+          className="flex flex-wrap p-5 gap-5 max-w-[1400px] mx-auto"
+          style={{ maxWidth: "calc((6rem + 1.25rem) * 11 + 2.5rem)" }}
+        >
+          {/* <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+            <img
+              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              src="/categories/skincare.png"
+              alt="Skincare"
+            />
+            <label className="">
+              Skincare
+            </label>
+          </div> */}
+          {isLoading ? (
+            <Loading />
+          ) : brands.length > 0 ? (
+            brands.map((brand) => (
+              <BrandCard key={brand.name} brand={brand} />
+            ))
+          ) : (
+            <div className="flex flex-wrap justify-center gap-4">
+              No brands available at the moment
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
