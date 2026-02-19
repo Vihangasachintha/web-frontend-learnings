@@ -75,13 +75,9 @@ export default function AdminUsers() {
                     {user._id}
                   </td>
 
-                  <td className="px-4 py-3">
-                    {user.firstName}
-                  </td>
+                  <td className="px-4 py-3">{user.firstName}</td>
 
-                  <td className="px-4 py-3">
-                    {user.lastName}
-                  </td>
+                  <td className="px-4 py-3">{user.lastName}</td>
 
                   <td
                     className="px-4 py-3"
@@ -103,7 +99,15 @@ export default function AdminUsers() {
                   </td>
 
                   <td className="px-4 py-3">
-                    {user.isBlocked ? "Blocked" : "Active"}
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        user.isBlocked
+                          ? "bg-red-200 text-red-600"
+                          : "bg-green-200 text-green-600"
+                      }`}
+                    >
+                      {user.isBlocked ? "Blocked" : "Active"}
+                    </span>
                   </td>
                 </tr>
               ))}
