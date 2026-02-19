@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const columnWidths = [240, 180, 260, 140, 120, 160];
+  const columnWidths = [240, 140, 180, 260, 120, 160];
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,7 +30,7 @@ export default function AdminUsers() {
       .catch((err) => {
         toast.error(
           "Error fetching users: " +
-            (err.response?.data?.message || "unknown error")
+            (err.response?.data?.message || "unknown error"),
         );
         setIsLoading(false);
       });
@@ -55,11 +55,11 @@ export default function AdminUsers() {
             <thead>
               <tr className="bg-accent text-white">
                 <th className="px-4 py-3 text-left">User ID</th>
-                <th className="px-4 py-3 text-left">Name</th>
+                <th className="px-4 py-3 text-left">Fisrt Name</th>
+                <th className="px-4 py-3 text-left">Last Name</th>
                 <th className="px-4 py-3 text-left">Email</th>
-                <th className="px-4 py-3 text-left">Phone</th>
                 <th className="px-4 py-3 text-left">Role</th>
-                <th className="px-4 py-3 text-left">Joined</th>
+                <th className="px-4 py-3 text-left">Status</th>
               </tr>
             </thead>
 
@@ -71,24 +71,23 @@ export default function AdminUsers() {
                     index % 2 === 0 ? "bg-white" : "bg-gray-50"
                   } hover:bg-pink-50`}
                 >
-                  <td
-                    className="px-4 py-3"
-                    style={{ wordBreak: "break-word" }}
-                  >
+                  <td className="px-4 py-3" style={{ wordBreak: "break-word" }}>
                     {user._id}
                   </td>
 
-                  <td className="px-4 py-3">{user.firstName + " " + user.lastName}</td>
+                  <td className="px-4 py-3">
+                    {user.firstName}
+                  </td>
+
+                  <td className="px-4 py-3">
+                    {user.lastName}
+                  </td>
 
                   <td
                     className="px-4 py-3"
                     style={{ whiteSpace: "normal", wordBreak: "break-word" }}
                   >
                     {user.email}
-                  </td>
-
-                  <td className="px-4 py-3">
-                    {user.phone ? user.phone : "-"}
                   </td>
 
                   <td className="px-4 py-3">
@@ -104,9 +103,7 @@ export default function AdminUsers() {
                   </td>
 
                   <td className="px-4 py-3">
-                    {user.createdAt
-                      ? new Date(user.createdAt).toLocaleDateString()
-                      : "-"}
+                    {user.isBlocked ? "Blocked" : "Active"}
                   </td>
                 </tr>
               ))}
