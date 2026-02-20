@@ -67,9 +67,6 @@ export default function AdminPage() {
             <Link className={getClass("orders")} to="/admin/orders">
               Orders
             </Link>
-            <Link className={getClass("reviews")} to="/admin/reviews">
-              Reviews
-            </Link>
             <Link className={getClass("brands")} to="/admin/brands">
               Brands
             </Link>
@@ -83,9 +80,6 @@ export default function AdminPage() {
                 Users
               </Route>
               <Route path="/orders" element={<AdminOrdersPage />}></Route>
-              <Route path="/reviews" element={<h1>Reviews</h1>}>
-                Reviews
-              </Route>
               <Route path="/brands" element={<AdminBrands />}>
                 Brands
               </Route>

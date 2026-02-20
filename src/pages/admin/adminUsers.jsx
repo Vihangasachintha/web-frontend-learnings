@@ -1,4 +1,5 @@
 import axios from "axios";
+import Modal from "react-modal";
 import { useState, useEffect } from "react";
 import Loading from "../../components/loading";
 import toast from "react-hot-toast";
@@ -7,6 +8,17 @@ export default function AdminUsers() {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const columnWidths = [240, 140, 180, 260, 120, 160];
+
+  Modal.setAppElement("#root");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  function openStatusModal(user) {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -36,8 +48,126 @@ export default function AdminUsers() {
       });
   }, []);
 
+  // Function to update user status (block/unblock)
+  const updateUserStatus = async () => {
+    if (!selectedUser) return;
+
+    setIsUpdating(true);
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${selectedUser._id}/status`,
+        {
+          isBlocked: !selectedUser.isBlocked, // Toggle the status
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      // Update the users list with the new status
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === selectedUser._id
+            ? { ...user, isBlocked: !user.isBlocked }
+            : user
+        )
+      );
+
+      toast.success(
+        response.data.message ||
+          `User ${!selectedUser.isBlocked ? "blocked" : "activated"} successfully`
+      );
+      
+      setIsModalOpen(false);
+      setSelectedUser(null);
+    } catch (err) {
+      toast.error(
+        "Error updating user status: " +
+          (err.response?.data?.message || "unknown error")
+      );
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   return (
     <div className="w-full h-full overflow-y-scroll p-6">
+      {/* Modal for changing user status */}
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 50,
+          },
+          content: {
+            position: "static",
+            inset: "unset",
+            border: "none",
+            borderRadius: "16px",
+            padding: "0",
+            maxWidth: "420px",
+            width: "100%",
+          },
+        }}
+      >
+        {selectedUser && (
+          <div className="p-6">
+            <h2 className="text-xl font-bold mb-4 text-center">
+              Change User Status
+            </h2>
+
+            <div className="space-y-2 mb-6 text-sm">
+              <p>
+                <strong>Name:</strong> {selectedUser.firstName} {selectedUser.lastName}
+              </p>
+              <p>
+                <strong>Email:</strong> {selectedUser.email}
+              </p>
+              <p>
+                <strong>Current Status:</strong>{" "}
+                <span className="font-semibold">
+                  {selectedUser.isBlocked ? "Blocked" : "Active"}
+                </span>
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="flex-1 py-2 rounded-lg bg-gray-300 hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={updateUserStatus}
+                disabled={isUpdating}
+                className={`flex-1 py-2 rounded-lg text-white font-semibold ${
+                  selectedUser.isBlocked
+                    ? "bg-green-500 hover:bg-green-600"
+                    : "bg-red-500 hover:bg-red-600"
+                } ${isUpdating ? "opacity-50 cursor-not-allowed" : ""}`}
+              >
+                {isUpdating
+                  ? "Updating..."
+                  : selectedUser.isBlocked
+                    ? "Activate User"
+                    : "Block User"}
+              </button>
+            </div>
+          </div>
+        )}
+      </Modal>
+
       {isLoading ? (
         <Loading />
       ) : (
@@ -98,7 +228,10 @@ export default function AdminUsers() {
                     </span>
                   </td>
 
-                  <td className="px-4 py-3">
+                  <td
+                    onClick={() => openStatusModal(user)}
+                    className="px-4 py-3 cursor-pointer"
+                  >
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${
                         user.isBlocked
