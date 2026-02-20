@@ -1,4 +1,5 @@
 import Header from "../components/header";
+import Footer from "../components/footer";
 import ProductOverviewPage from "./client/productOverview";
 import ProductPage from "./client/productPage";
 import { Routes, Route } from "react-router-dom";
@@ -9,9 +10,9 @@ import ClientHomePage from "./client/home";
 
 export default function HomePage() {
   return (
-    <div className="w-full h-screen flex flex-col items-center">
+    <div className="w-full min-h-screen flex flex-col items-center">
       <Header />
-      <div className="w-full h-[calc(100vh-80px)] flex flex-col items-center">
+      <div className="w-full flex-1 flex flex-col items-center overflow-auto">
         <Routes path="/*">
           <Route path="/" element={<ClientHomePage />} />
           <Route path="/products" element={<ProductPage />} />
@@ -24,6 +25,7 @@ export default function HomePage() {
           <Route path="/*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </div>
+      <Footer/>
     </div>
   );
 }

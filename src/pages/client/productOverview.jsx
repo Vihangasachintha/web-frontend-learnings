@@ -9,7 +9,6 @@ import { addToCart } from "../../utils/cart.jsx";
 import { getCart } from "../../utils/cart.jsx";
 import { removeFromCart } from "../../utils/cart.jsx";
 
-
 export default function ProductOverviewPage() {
   const params = useParams();
   const productId = params.id;
