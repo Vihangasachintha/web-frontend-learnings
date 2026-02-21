@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -108,9 +109,12 @@ export default function ClientHomePage() {
                     <p className="text-lg md:text-xl text-white mb-8 font-light tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
                       {slide.subtitle}
                     </p>
-                    <button className="bg-white text-black px-10 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-all duration-300 border border-white">
+                    <Link 
+                      to="/products"
+                      className="inline-block bg-white text-black px-10 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-all duration-300 border border-white"
+                    >
                       Shop Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
