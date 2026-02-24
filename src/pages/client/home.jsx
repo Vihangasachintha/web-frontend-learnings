@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -21,9 +21,14 @@ import axios from "axios";
 import Loading from "../../components/loading.jsx";
 
 export default function ClientHomePage() {
+  const navigate = useNavigate();
   const [newArrivals, setNewArrivals] = useState([]);
   const [brands, setBrands] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleCategoryClick = (category) => {
+    navigate(`/products/category/${category}`);
+  };
 
   const slides = [
     {
@@ -73,6 +78,7 @@ export default function ClientHomePage() {
       });
   }, []);
 
+  
   return (
     <div className="w-full flex flex-col">
       <div className="w-full">
@@ -169,63 +175,63 @@ export default function ClientHomePage() {
           className="flex flex-wrap p-5 gap-9 max-w-[1400px] mx-auto"
           style={{ maxWidth: "calc((6rem + 1.25rem) * 11 + 2.5rem)" }}
         >
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Skincare")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/skincare.png"
               alt="Skincare"
             />
-            <label className="" htmlFor="">
+            <label className="cursor-pointer" htmlFor="" >
               Skincare
             </label>
           </div>
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Makeup")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/makeup.png"
               alt="Makeup"
             />
-            <label htmlFor="">Makeup</label>
+            <label className="cursor-pointer" htmlFor="">Makeup</label>
           </div>
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Hair")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/hair.png"
               alt="Hair"
             />
-            <label htmlFor="">Hair</label>
+            <label className="cursor-pointer" htmlFor="">Hair</label>
           </div>
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Bath & Body")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/bathbody.png"
               alt="Bath & Body"
             />
-            <label htmlFor="">Bath & Body</label>
+            <label className="cursor-pointer" htmlFor="">Bath & Body</label>
           </div>
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Fragrance")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/fragrances.png"
               alt="Fragrance"
             />
-            <label htmlFor="">Fragrance</label>
+            <label className="cursor-pointer" htmlFor="">Fragrance</label>
           </div>
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Wellness")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/wellness.png"
               alt="Wellness"
             />
-            <label htmlFor="">Wellness</label>
+            <label className="cursor-pointer" htmlFor="">Wellness</label>
           </div>
-          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
+          <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Tools & Accessories")}>
             <img
               className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/tools.png"
               alt="Tools & Accessories"
             />
-            <label htmlFor="">Tools & Accessories</label>
+            <label className="cursor-pointer" htmlFor="">Tools & Accessories</label>
           </div>
         </div>
       </div>
