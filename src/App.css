@@ -1,7 +1,48 @@
 @import "tailwindcss";
 
-@theme{
-    --color-primary: #FBFBFB;
-    --color-secondary: #393E46;
-    --color-accent: #483AA0;
+@theme {
+  --color-primary: #fbfbfb;
+  --color-secondary: #393e46;
+  --color-accent: #483aa0;
+}
+
+.Head1 {
+  font-size: 10rem;
+}
+
+.Head2 {
+  font-size: 5rem;
+}
+
+.Head3 {
+  font-size: 6.75rem;
+}
+
+@media (max-width: 1600px) {
+  .Head1 {
+    font-size: 6rem;
+  }
+  .Head3 {
+    font-size: 5rem;
+  }
+}
+
+.VeloraHead {
+  font-weight: 700;
+  font-family: "Lucida Handwriting", cursive;
+  letter-spacing: -1px; /* Tighter letters look more modern */
+  /* This creates a soft halo instead of a hard line */
+  text-shadow:
+    0 0 10px rgba(252, 0, 126, 0.6),
+    0 2px 10px rgb(230, 19, 201);
+}
+.VeloraSubHead {
+  font-weight: 700;
+
+  font-family: "Lucida Handwriting", cursive;
+  letter-spacing: -1px; /* Tighter letters look more modern */
+  /* This creates a soft halo instead of a hard line */
+  text-shadow:
+    0 0 10px rgba(252, 0, 126, 0.6),
+    0 2px 10px rgb(230, 19, 201);
 }
