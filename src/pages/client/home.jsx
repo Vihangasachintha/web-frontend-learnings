@@ -166,7 +166,7 @@ export default function ClientHomePage() {
           </label>
         </div>
         <div
-          className="flex flex-wrap p-5 gap-5 max-w-[1400px] mx-auto"
+          className="flex flex-wrap p-5 gap-9 max-w-[1400px] mx-auto"
           style={{ maxWidth: "calc((6rem + 1.25rem) * 11 + 2.5rem)" }}
         >
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
@@ -269,19 +269,9 @@ export default function ClientHomePage() {
           <label className="ms-16 text-xl font-semibold">Shop by Brand</label>
         </div>
         <div
-          className="flex flex-wrap p-5 gap-5 max-w-[1400px] mx-auto"
+          className="flex flex-wrap p-5 gap-19 max-w-[1400px] mx-auto"
           style={{ maxWidth: "calc((6rem + 1.25rem) * 11 + 2.5rem)" }}
         >
-          {/* <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500">
-            <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
-              src="/categories/skincare.png"
-              alt="Skincare"
-            />
-            <label className="">
-              Skincare
-            </label>
-          </div> */}
           {isLoading ? (
             <Loading />
           ) : brands.length > 0 ? (
