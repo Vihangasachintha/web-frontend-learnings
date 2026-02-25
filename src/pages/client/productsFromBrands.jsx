@@ -1,19 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import ProductCard from "../../components/productCard";
 import Loading from "../../components/loading";
 
 export default function ProductsFromBrandsPage() {
   const { brand } = useParams();
+  const location = useLocation();
+  const brandName = location.state?.brandName || brand;
+  const brandId = location.state?.brandId || brand;
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (brand) {
+    if (brandId) {
       setIsLoading(true);
       axios
-        .get(import.meta.env.VITE_BACKEND_URL + `/api/products/brand/${brand}`)
+        .get(import.meta.env.VITE_BACKEND_URL + `/api/products/brand/${brandId}`)
         .then((res) => {
           const list = Array.isArray(res.data)
             ? res.data
@@ -29,7 +32,7 @@ export default function ProductsFromBrandsPage() {
           setIsLoading(false);
         });
     }
-  }, [brand]);
+  }, [brandId]);
 
   if (isLoading) {
     return <Loading />;
@@ -38,7 +41,7 @@ export default function ProductsFromBrandsPage() {
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <h1 className="w-full text-center text-2xl font-semibold py-6">
-        {brand} Products
+        {brandName} Products
       </h1>
       
       <div className="w-full flex flex-wrap justify-center items-center">

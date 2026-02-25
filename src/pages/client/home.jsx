@@ -25,8 +25,10 @@ export default function ClientHomePage() {
     navigate(`/products/category/${category}`);
   };
 
-  const handleBrandClick = (brand) => {
-    navigate(`/products/brand/${brand}`);
+  const handleBrandClick = (brandObj) => {
+    navigate(`/products/brand/${brandObj._id}`, { 
+      state: { brandName: brandObj.name, brandId: brandObj._id } 
+    });
   };
 
   const slides = [
@@ -281,7 +283,7 @@ export default function ClientHomePage() {
             <Loading />
           ) : brands.length > 0 ? (
             brands.map((brand) => (
-              <BrandCard key={brand._id} brand={brand} onClick={() => handleBrandClick(brand._id)} />
+              <BrandCard key={brand._id} brand={brand} onClick={() => handleBrandClick(brand)} />
             ))
           ) : (
             <div className="flex flex-wrap justify-center gap-4">
