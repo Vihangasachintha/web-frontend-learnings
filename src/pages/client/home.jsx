@@ -9,11 +9,6 @@ import img1 from "../../assets/mainSlider/img1.jpg";
 import img2 from "../../assets/mainSlider/img2.jpg";
 import img3 from "../../assets/mainSlider/img3.jpg";
 
-// import new1 from "../../assets/newArrivals/new1.png";
-// import new2 from "../../assets/newArrivals/new2.png";
-// import new3 from "../../assets/newArrivals/new3.png";
-// import new4 from "../../assets/newArrivals/new4.png";
-
 import NewArrivalProductCard from "../../components/newArrivalProductCard.jsx";
 import { BrandCard } from "../../components/brandCard.jsx";
 import { useEffect, useState } from "react";
@@ -28,6 +23,10 @@ export default function ClientHomePage() {
 
   const handleCategoryClick = (category) => {
     navigate(`/products/category/${category}`);
+  };
+
+  const handleBrandClick = (brand) => {
+    navigate(`/products/brand/${brand}`);
   };
 
   const slides = [
@@ -282,7 +281,7 @@ export default function ClientHomePage() {
             <Loading />
           ) : brands.length > 0 ? (
             brands.map((brand) => (
-              <BrandCard key={brand.name} brand={brand} />
+              <BrandCard key={brand.name} brand={brand} onClick={() => handleBrandClick(brand.name) }/>
             ))
           ) : (
             <div className="flex flex-wrap justify-center gap-4">

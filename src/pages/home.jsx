@@ -8,6 +8,7 @@ import CheckoutPage from "./client/checkOut";
 import SearchProductPage from "./client/searchProduct";
 import ClientHomePage from "./client/home";
 import ProductsFromCategoriesPage from "./client/productsFromCategories";
+import ProductsFromBrandsPage from "./client/productsFromBrands";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
           <Route path="/" element={<ClientHomePage />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path="/products/category/:category" element={<ProductsFromCategoriesPage />} />
+          <Route path="/products/brand/:brand" element={<ProductsFromBrandsPage />} />
           <Route path="/about" element={<h1>About</h1>} />
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/cart" element={<CartPage />} />
