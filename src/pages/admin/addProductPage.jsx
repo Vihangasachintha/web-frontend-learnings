@@ -60,9 +60,24 @@ export default function AddProduct() {
 
     try {
       const imageUrls = await Promise.all(promisesArray);
-      console.log(imageUrls);
+      console.log("Uploaded image URLs:", imageUrls);
 
-      const altNamesArray = altNames.split(",");
+      // Validate that all images were uploaded successfully
+      if (!imageUrls || imageUrls.length === 0) {
+        toast.error("Failed to upload images. Please try again.");
+        return;
+      }
+
+      // Check if any URL is invalid
+      const invalidUrls = imageUrls.filter(url => !url || typeof url !== 'string' || url.trim() === '');
+      if (invalidUrls.length > 0) {
+        toast.error("Some images failed to upload. Please try again.");
+        console.error("Invalid URLs:", invalidUrls);
+        return;
+      }
+
+      // Handle empty altNames properly
+      const altNamesArray = altNames.trim() ? altNames.split(",").map(name => name.trim()).filter(name => name) : [];
 
       const product = {
         productId: productId,
@@ -76,21 +91,27 @@ export default function AddProduct() {
         category: category,
         brand: brand
       };
-      axios
+      
+      console.log("Product data being sent:", product);
+      
+      await axios
         .post(import.meta.env.VITE_BACKEND_URL + "/api/products", product, {
           headers: {
             Authorization: "Bearer " + token,
           },
         })
         .then((res) => {
+          console.log("Product created successfully:", res.data);
           toast.success("Product added successfully!");
           navigate("/admin/products");
         })
         .catch((e) => {
-          toast.error(e.response.data.message);
+          console.error("Error creating product:", e);
+          toast.error(e.response?.data?.message || "Failed to add product. Please try again.");
         });
     } catch (e) {
-      console.log(e);
+      console.error("Error during product creation:", e);
+      toast.error("Failed to upload images. Please try again.");
     }
   }
 

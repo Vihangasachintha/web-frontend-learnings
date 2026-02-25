@@ -47,7 +47,7 @@ export default function EditProductPage() {
   async function UpdateProduct(e) {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("You must be logged in to add a product");
+      toast.error("You must be logged in to update a product");
       return;
     }
 
@@ -62,10 +62,27 @@ export default function EditProductPage() {
     try {
         if(images.length > 0){
             imageUrls = await Promise.all(promisesArray);
-        }
-      console.log(imageUrls);
+            console.log("Uploaded new image URLs:", imageUrls);
+            
+            // Validate that all images were uploaded successfully
+            if (!imageUrls || imageUrls.length === 0) {
+              toast.error("Failed to upload images. Please try again.");
+              return;
+            }
 
-      const altNamesArray = altNames.split(",");
+            // Check if any URL is invalid
+            const invalidUrls = imageUrls.filter(url => !url || typeof url !== 'string' || url.trim() === '');
+            if (invalidUrls.length > 0) {
+              toast.error("Some images failed to upload. Please try again.");
+              console.error("Invalid URLs:", invalidUrls);
+              return;
+            }
+        }
+        
+      console.log("Image URLs:", imageUrls);
+
+      // Handle empty altNames properly
+      const altNamesArray = altNames.trim() ? altNames.split(",").map(name => name.trim()).filter(name => name) : [];
 
       const product = {
         productId: productId,
@@ -79,21 +96,27 @@ export default function EditProductPage() {
         category: category,
         brand: brand
       };
-      axios
+      
+      console.log("Product data being sent:", product);
+      
+      await axios
         .put(import.meta.env.VITE_BACKEND_URL + "/api/products/"+productId, product, {
           headers: {
             Authorization: "Bearer " + token,
           },
         })
         .then((res) => {
+          console.log("Product updated successfully:", res.data);
           toast.success("Product updated successfully!");
           navigate("/admin/products");
         })
         .catch((e) => {
-          toast.error(e.response.data.message);
+          console.error("Error updating product:", e);
+          toast.error(e.response?.data?.message || "Failed to update product. Please try again.");
         });
     } catch (e) {
-      console.log(e);
+      console.error("Error during product update:", e);
+      toast.error("Failed to upload images. Please try again.");
     }
   }
 

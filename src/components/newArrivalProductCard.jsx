@@ -5,14 +5,19 @@ import { Link } from "react-router-dom";
 
 export default function NewArrivalProductCard({ product }) {
   if (product) {
+    const hasImages = Array.isArray(product.images) && product.images.length > 0;
     return (
         <Link to={"/overview/" + product.productId} className="w-[20%] shadow shadow-fuchsia-500 h-[440px] rounded-xl">
-          <div className="h-[300px]">
-            <img
-              src={product.images[0]}
-              className="w-[100%] h-[100%] rounded-t-xl"
-              alt=""
-            />
+          <div className="h-[300px] bg-gray-100 flex items-center justify-center">
+            {hasImages ? (
+              <img
+                src={product.images[0]}
+                className="w-[100%] h-[100%] rounded-t-xl object-cover"
+                alt={product.name || "Product"}
+              />
+            ) : (
+              <span className="text-gray-400">No Image</span>
+            )}
           </div>
           <div className="h-[160px]">
             <div className="w-full flex justify-center items-center h-[70px]">
