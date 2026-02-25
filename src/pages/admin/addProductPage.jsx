@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import mediaUpload from "../../utils/mediaUpload";
@@ -14,7 +15,31 @@ export default function AddProduct() {
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
+  const [brand, setBrand] = useState("");
+  const [brands, setBrands] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          import.meta.env.VITE_BACKEND_URL + "/api/brands",
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setBrands(response.data);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+        toast.error("Failed to load brands");
+      }
+    };
+
+    fetchBrands();
+  }, []);
 
   async function AddProduct(e) {
     const token = localStorage.getItem("token");
@@ -48,7 +73,8 @@ export default function AddProduct() {
         labelPrice: labelPrice,
         price: price,
         stock: stock,
-        category: category
+        category: category,
+        brand: brand
       };
       axios
         .post(import.meta.env.VITE_BACKEND_URL + "/api/products", product, {
@@ -114,6 +140,20 @@ export default function AddProduct() {
         <option value="Fragrance">Fragrance</option>
         <option value="Wellness">Wellness</option>
         <option value="Tools & Accessories">Tools & Accessories</option>
+      </select>
+      <select
+        className="select select-bordered w-full max-w-xs border rounded border-blue-600 h-10"
+        value={brand}
+        onChange={(e) => setBrand(e.target.value)}
+      >
+        <option value="" disabled>
+          Select Brand
+        </option>
+        {brands.map((brand) => (
+          <option key={brand._id} value={brand._id}>
+            {brand.name}
+          </option>
+        ))}
       </select>
       <input
         type="file"
