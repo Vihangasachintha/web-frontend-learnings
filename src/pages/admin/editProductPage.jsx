@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import mediaUpload from "../../utils/mediaUpload";
@@ -14,9 +14,35 @@ export default function EditProductPage() {
   const [labelPrice, setLabelledPrice] = useState(location.state.labelPrice);
   const [price, setPrice] = useState(location.state.price);
   const [stock, setStock] = useState(location.state.stock);
+  const [category, setCategory] = useState(location.state.category);
+  const [brand, setBrand] = useState(location.state.brand);
+  const [brands, setBrands] = useState([]);
   const navigate = useNavigate();
+  
 
   console.log(location);
+
+  useEffect(() => {
+      const fetchBrands = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await axios.get(
+            import.meta.env.VITE_BACKEND_URL + "/api/brands",
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          setBrands(response.data);
+        } catch (error) {
+          console.error("Error fetching brands:", error);
+          toast.error("Failed to load brands");
+        }
+      };
+  
+      fetchBrands();
+    }, []);
 
   async function UpdateProduct(e) {
     const token = localStorage.getItem("token");
@@ -50,6 +76,8 @@ export default function EditProductPage() {
         labelPrice: labelPrice,
         price: price,
         stock: stock,
+        category: category,
+        brand: brand
       };
       axios
         .put(import.meta.env.VITE_BACKEND_URL + "/api/products/"+productId, product, {
@@ -101,6 +129,36 @@ export default function EditProductPage() {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+      <select
+        className="select select-bordered w-full max-w-xs border rounded border-blue-600 h-10"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <option value="" disabled>
+          Select Category
+        </option>
+        <option value="Skincare">Skincare</option>
+        <option value="Makeup">Makeup</option>
+        <option value="Hair">Hair</option>
+        <option value="Bath & Body">Bath & Body</option>
+        <option value="Fragrance">Fragrance</option>
+        <option value="Wellness">Wellness</option>
+        <option value="Tools & Accessories">Tools & Accessories</option>
+      </select>
+      <select
+        className="select select-bordered w-full max-w-xs border rounded border-blue-600 h-10"
+        value={brand}
+        onChange={(e) => setBrand(e.target.value)}
+      >
+        <option value="" disabled>
+          Select Brand
+        </option>
+        {brands.map((brand) => (
+          <option key={brand._id} value={brand._id}>
+            {brand.name}
+          </option>
+        ))}
+      </select>
       <input
         type="file"
         multiple
