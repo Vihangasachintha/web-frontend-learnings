@@ -38,7 +38,7 @@ export default function ProductsFromBrandsPage() {
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
       <h1 className="w-full text-center text-2xl font-semibold py-6">
-        {category} Products
+        {brand} Products
       </h1>
       
       <div className="w-full flex flex-wrap justify-center items-center">

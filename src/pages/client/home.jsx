@@ -281,7 +281,7 @@ export default function ClientHomePage() {
             <Loading />
           ) : brands.length > 0 ? (
             brands.map((brand) => (
-              <BrandCard key={brand.name} brand={brand} onClick={() => handleBrandClick(brand.name) }/>
+              <BrandCard key={brand._id} brand={brand} onClick={() => handleBrandClick(brand._id)} />
             ))
           ) : (
             <div className="flex flex-wrap justify-center gap-4">
