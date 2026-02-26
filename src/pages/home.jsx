@@ -9,6 +9,7 @@ import SearchProductPage from "./client/searchProduct";
 import ClientHomePage from "./client/home";
 import ProductsFromCategoriesPage from "./client/productsFromCategories";
 import ProductsFromBrandsPage from "./client/productsFromBrands";
+import AboutUsPage from "./client/aboutUs";
 
 export default function HomePage() {
   return (
@@ -23,6 +24,7 @@ export default function HomePage() {
           <Route path="/about" element={<h1>About</h1>} />
           <Route path="/contact" element={<h1>Contact</h1>} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/search" element={<SearchProductPage />} />
           <Route path="/overview/:id" element={<ProductOverviewPage/> }/>

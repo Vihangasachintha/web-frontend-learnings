@@ -35,7 +35,7 @@ export default function Header() {
             Shop
           </Link>
           <Link 
-            to="/about" 
+            to="/about-us" 
             className="text-[13px] font-medium tracking-wider uppercase text-black hover:text-gray-600 transition-colors"
           >
             About
@@ -159,7 +159,7 @@ export default function Header() {
                 Shop
               </Link>
               <Link 
-                to="/about" 
+                to="/about-us" 
                 className="text-[14px] font-medium tracking-wider uppercase text-black py-4 border-b border-gray-100"
                 onClick={() => setSideDrawerOpen(false)}
               >
