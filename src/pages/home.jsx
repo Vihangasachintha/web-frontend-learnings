@@ -11,6 +11,8 @@ import ProductsFromCategoriesPage from "./client/productsFromCategories";
 import ProductsFromBrandsPage from "./client/productsFromBrands";
 import AboutUsPage from "./client/aboutUs";
 import ContactUsPage from "./client/contactUs";
+import PaymentSuccessPage from "./client/paymentSuccess";
+import PaymentCancelPage from "./client/paymentCancel";
 
 export default function HomePage() {
   return (
@@ -29,6 +31,8 @@ export default function HomePage() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/search" element={<SearchProductPage />} />
           <Route path="/overview/:id" element={<ProductOverviewPage/> }/>
+          <Route path="/payment-success" element={<PaymentSuccessPage />} />
+          <Route path="/payment-cancel" element={<PaymentCancelPage />} />
           <Route path="/*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </div>
