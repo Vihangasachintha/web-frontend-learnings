@@ -8,7 +8,7 @@ export default function CartPage(){
 
     return(
         <div className="w-full max-w-full min-h-screen flex flex-col items-center pt-4 pb-24 md:pb-4 relative px-2 sm:px-4">
-            <div className="z-50 hidden md:flex w-[90%] sm:w-[400px] lg:w-[450px] h-auto py-4 px-6 shadow-2xl rounded-lg bg-white absolute top-4 right-2 lg:right-4 flex-col justify-center items-center gap-2">
+            <div className="z-40 hidden md:flex w-[90%] sm:w-[400px] lg:w-[450px] h-auto py-4 px-6 shadow-2xl rounded-lg bg-white absolute top-20 md:top-24 right-2 lg:right-4 flex-col justify-center items-center gap-2">
                 <p className="text-xl lg:text-2xl text-secondary font-bold">Total: 
                     <span className="text-accent font-bold mx-2">
                         Rs. {getTotal().toFixed(2)}
