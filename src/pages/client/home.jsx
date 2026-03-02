@@ -101,24 +101,24 @@ export default function ClientHomePage() {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
-              <div className="relative w-full h-[620px]">
+              <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[650px] xl:h-[700px]">
                 <img
                   src={slide.image}
                   alt={slide.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-opacity-10"></div>
-                <div className="absolute inset-0 max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-end">
-                  <div className="text-right max-w-xl">
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-[0.2em] text-white mb-4 drop-shadow-[0_2px_10px_rgba(0,0,1,1)]">
+                <div className="absolute inset-0 max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex items-center justify-center md:justify-end">
+                  <div className="text-center md:text-right max-w-xl w-full md:w-auto px-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-[0.15em] md:tracking-[0.2em] text-white mb-3 md:mb-4 drop-shadow-[0_2px_10px_rgba(0,0,1,1)]">
                       {slide.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-white mb-8 font-light tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
+                    <p className="text-base sm:text-lg md:text-xl text-white mb-6 md:mb-8 font-light tracking-wide md:tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
                       {slide.subtitle}
                     </p>
                     <Link 
                       to="/products"
-                      className="inline-block bg-white text-black px-10 py-4 text-sm font-medium tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-all duration-300 border border-white"
+                      className="inline-block bg-white text-black px-6 sm:px-8 md:px-10 py-3 md:py-4 text-xs sm:text-sm font-medium tracking-[0.12em] md:tracking-[0.15em] uppercase hover:bg-black hover:text-white transition-all duration-300 border border-white"
                     >
                       Shop Now
                     </Link>
@@ -134,10 +134,18 @@ export default function ClientHomePage() {
         .hero-carousel .swiper-button-prev {
           color: white;
           background: rgba(255, 255, 255, 0.2);
-          width: 50px;
-          height: 50px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+          .hero-carousel .swiper-button-next,
+          .hero-carousel .swiper-button-prev {
+            width: 50px;
+            height: 50px;
+          }
         }
         
         .hero-carousel .swiper-button-next:hover,
@@ -147,11 +155,18 @@ export default function ClientHomePage() {
         
         .hero-carousel .swiper-button-next::after,
         .hero-carousel .swiper-button-prev::after {
-          font-size: 20px;
+          font-size: 16px;
+        }
+        
+        @media (min-width: 768px) {
+          .hero-carousel .swiper-button-next::after,
+          .hero-carousel .swiper-button-prev::after {
+            font-size: 20px;
+          }
         }
         
         .hero-carousel .swiper-pagination-bullet {
-          width: 40px;
+          width: 30px;
           height: 3px;
           border-radius: 0;
           background: rgba(255, 255, 255, 0.5);
@@ -159,126 +174,137 @@ export default function ClientHomePage() {
           transition: all 0.3s ease;
         }
         
+        @media (min-width: 768px) {
+          .hero-carousel .swiper-pagination-bullet {
+            width: 40px;
+          }
+        }
+        
         .hero-carousel .swiper-pagination-bullet-active {
           background: white;
-          width: 60px;
+          width: 45px;
+        }
+        
+        @media (min-width: 768px) {
+          .hero-carousel .swiper-pagination-bullet-active {
+            width: 60px;
+          }
         }
       `}</style>
       </div>
 
-      <div className="w-full min-h-[300px] py-8">
-        <div className="m-2">
-          <label className="ms-16 text-xl font-semibold">
+      <div className="w-full min-h-[300px] py-6 md:py-8 lg:py-10">
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mb-4 md:mb-6">
+          <label className="text-lg sm:text-xl md:text-2xl font-semibold">
             Shop by Category
           </label>
         </div>
-        <div
-          className="flex flex-wrap p-5 gap-9 max-w-[1400px] mx-auto"
-          style={{ maxWidth: "calc((6rem + 1.25rem) * 11 + 2.5rem)" }}
-        >
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto">
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Skincare")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/skincare.png"
               alt="Skincare"
             />
-            <label className="cursor-pointer" htmlFor="" >
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="" >
               Skincare
             </label>
           </div>
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Makeup")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/makeup.png"
               alt="Makeup"
             />
-            <label className="cursor-pointer" htmlFor="">Makeup</label>
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="">Makeup</label>
           </div>
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Hair")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/hair.png"
               alt="Hair"
             />
-            <label className="cursor-pointer" htmlFor="">Hair</label>
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="">Hair</label>
           </div>
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Bath & Body")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/bathbody.png"
               alt="Bath & Body"
             />
-            <label className="cursor-pointer" htmlFor="">Bath & Body</label>
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="">Bath & Body</label>
           </div>
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Fragrance")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/fragrances.png"
               alt="Fragrance"
             />
-            <label className="cursor-pointer" htmlFor="">Fragrance</label>
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="">Fragrance</label>
           </div>
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Wellness")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/wellness.png"
               alt="Wellness"
             />
-            <label className="cursor-pointer" htmlFor="">Wellness</label>
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="">Wellness</label>
           </div>
           <div className="flex flex-col justify-center items-center cursor-pointer hover:text-pink-500" onClick={() => handleCategoryClick("Tools & Accessories")}>
             <img
-              className="w-24 h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 border-0 rounded-full hover:scale-110 transition-transform duration-300"
               src="/categories/tools.png"
               alt="Tools & Accessories"
             />
-            <label className="cursor-pointer" htmlFor="">Tools & Accessories</label>
+            <label className="cursor-pointer text-xs sm:text-sm md:text-base mt-2" htmlFor="">Tools & Accessories</label>
           </div>
         </div>
       </div>
 
-      <div className="w-full">
-        <div className="w-full flex">
-          <div className="w-[50%] p-3 ps-20">
-            <label htmlFor="" className="text-[22px]">
+      <div className="w-full py-6 md:py-8">
+        <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 sm:px-6 md:px-8 lg:px-12 mb-4 md:mb-6 gap-2 sm:gap-0">
+          <div className="w-full sm:w-auto">
+            <label htmlFor="" className="text-lg sm:text-xl md:text-2xl font-semibold">
               New Arrivals
             </label>
           </div>
-          <div className="w-[50%] p-3 pe-20 flex justify-end">
-            <a href="" className="underline mt-1">
+          <div className="w-full sm:w-auto flex justify-start sm:justify-end">
+            <a href="" className="underline text-sm sm:text-base hover:text-accent transition-colors">
               View All
             </a>
           </div>
         </div>
 
-        <div className="w-full h-[500px] flex flex-row gap-5 justify-center">
+        <div className="w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] flex flex-row gap-5 justify-center">
           {isLoading ? (
-            <Loading />
+            <div className="w-full flex justify-center items-center">
+              <Loading />
+            </div>
           ) : newArrivals.length > 0 ? (
-            <div className="flex flex-wrap justify-center gap-4">
-              {newArrivals.map((product) => (
-                <NewArrivalProductCard
-                  key={product.productId}
-                  product={product}
-                />
-              ))}
+            <div className="w-full overflow-x-auto overflow-y-hidden px-4 sm:px-6 md:px-8">
+              <div className="flex md:flex-wrap md:justify-center gap-4 md:gap-6 pb-4 md:pb-0 min-w-max md:min-w-0">
+                {newArrivals.map((product) => (
+                  <div key={product.productId} className="flex-shrink-0 md:flex-shrink">
+                    <NewArrivalProductCard
+                      product={product}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
-            <div className="text-gray-500 text-lg py-12">
+            <div className="w-full flex justify-center items-center text-gray-500 text-sm sm:text-base md:text-lg py-12">
               No new arrivals at the moment
             </div>
           )}
         </div>
       </div>
 
-      <div className="w-full min-h-[300px] py-8">
-        <div className="m-2">
-          <label className="ms-16 text-xl font-semibold">Shop by Brand</label>
+      <div className="w-full min-h-[300px] py-6 md:py-8 lg:py-10">
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12 mb-4 md:mb-6">
+          <label className="text-lg sm:text-xl md:text-2xl font-semibold">Shop by Brand</label>
         </div>
-        <div
-          className="flex flex-wrap p-5 gap-19 max-w-[1400px] mx-auto"
-          style={{ maxWidth: "calc((6rem + 1.25rem) * 11 + 2.5rem)" }}
-        >
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-8 lg:px-12 max-w-[1400px] mx-auto">
           {isLoading ? (
             <Loading />
           ) : brands.length > 0 ? (
@@ -286,7 +312,7 @@ export default function ClientHomePage() {
               <BrandCard key={brand._id} brand={brand} onClick={() => handleBrandClick(brand)} />
             ))
           ) : (
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="col-span-full flex justify-center items-center text-gray-500 text-sm sm:text-base md:text-lg py-8 md:py-12">
               No brands available at the moment
             </div>
           )}
